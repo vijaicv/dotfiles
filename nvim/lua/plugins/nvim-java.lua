@@ -17,39 +17,10 @@ return {
             jdk = {
                 auto_install = false,
             },
-            jdtls={
-                init_options = {
-                    workspace = function ()
-                        local root = vim.fs.root(0, {
-                            'gradlew', 'settings.gradle', 'settings.gradle.kts',
-                            'build.gradle', 'build.gradle.kts', 'pom.xml', 'mvnw', '.git'
-                        }) or vim.fn.getcwd()
-                        local project_name = vim.fn.fnamemodify(root, ':t')
-                        local workspace_dir = '~/projects/' .. 'projects-meta/' .. project_name
-                        return workspace_dir
-                    end
-                },
-                workspace_dir = function(project_root)
-                    return "~/projects/projects-meta/" .. "/jdtls-workspaces/" .. vim.fn.fnamemodify(project_root, ":p:h:t")
-                end,
-            }
         })
         vim.lsp.enable('jdtls')
         local dap = require("dap")
 
-        local root = vim.fs.root(0, {
-            'gradlew', 'settings.gradle', 'settings.gradle.kts',
-            'build.gradle', 'build.gradle.kts', 'pom.xml', 'mvnw', '.git'
-        }) or vim.fn.getcwd()
-        local project_name = vim.fn.fnamemodify(root, ':t')
-        local workspace_dir = '~/projects/' .. 'projects-meta/' .. project_name
-
-        vim.lsp.config('jdtls', {
-            workspace = workspace_dir,
-            init_options = {
-                workspace = workspace_dir,
-            },
-        })
         dap.configurations.java = {
           {
             type = 'java';
@@ -83,19 +54,6 @@ return {
                         },
                     },
                     jdtls = function()
-                        print("setting up workspace_dir")
-                        local root = vim.fs.root(0, {
-                            'gradlew', 'settings.gradle', 'settings.gradle.kts',
-                            'build.gradle', 'build.gradle.kts', 'pom.xml', 'mvnw', '.git'
-                        }) or vim.fn.getcwd()
-                        local project_name = vim.fn.fnamemodify(root, ':t')
-                        local workspace_dir = '~/projects/' .. 'projects-meta/' .. project_name
-
-                        vim.lsp.config('jdtls', {
-                            init_options = {
-                                workspace = workspace_dir,
-                            },
-                        })
                     end,
                 },
             },
