@@ -1,2 +1,2 @@
-# Neovim(NvChad) config for java
-- uses nvim-java for java lsp capcabilities
+# Dotfiles
+Tmux conf and Neovim(NvChad) config for java
